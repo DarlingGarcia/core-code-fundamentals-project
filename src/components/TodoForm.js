@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { BsArrowDown, BsPlusCircleFill } from "react-icons/bs";
 import { RiCheckboxCircleLine } from "react-icons/ri";
 
@@ -27,12 +27,15 @@ function TodoForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const date = new Date()
     props.onSubmit({
-      id: Math.floor(Math.random() * 10000),
-      text: input,
+      // randomUUID() es nato de javascript y nos genera un ID unico
+      id: crypto.randomUUID(),
+      createdAt: date.toLocaleString("us"),
+      lastEdit: date.toLocaleString("us"),
+      title: input,
       description,
-      isDone: false,
-      showDescription: false,
+      state: "Pending"
     });
     setInput("");
     setDescription("");
